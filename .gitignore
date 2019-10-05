@@ -1,0 +1,8 @@
+# ignored directories
+attachments/
+databases/
+vendor/
+
+# ignored files
+composer.json
+config.php
