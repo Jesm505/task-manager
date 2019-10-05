@@ -1,8 +1,6 @@
 <?php
-//se pá tem q ter um header aqui mee
 try{    
-		$db_path = 'databases/tasks.db';
-    	$tasks_con = new PDO('sqlite:' . $db_path);
+    	$tasks_con = new PDO('sqlite:' . DB_PATH);
     	$tasks_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	} catch (PDOException $e){
      	echo 'Connection failed: ' . $e->getMessage();
@@ -38,12 +36,15 @@ function insert_task($con, $arr) {
 		$stmt = $con->prepare($query);
 		$success = $stmt->execute(array(':name' => $name, ':description' => $description, ':deadline' => $deadline, ':priority' => $priority, ':complete' => $complete));
 
-		if ($success) {
+		/*if ($success) {
 			echo "<a href='tasks.php'>success</a>";
 		} else {
 			echo "<a href='tasks.php'>TÁ EXECUTANDO NÃO MANOLO</a><br>";
 			print_r($con->errorInfo());
-		}
+		}*/
+		header('Location: tasks.php');
+		die;
+
 	} catch (PDOException $e) {
 		echo "ERROR: " . $e->getMessage();
 	}
@@ -82,8 +83,6 @@ function edit_task($con, $arr) {
 	$query = 'UPDATE tasks SET name = :name, description = :description, deadline = :deadline, priority = :priority, complete = :complete WHERE id = :id;';
 	$stmt = $con->prepare($query);
 	$stmt->execute(array(':name' => $arr['name'], ':description' => $arr['description'], ':deadline' => $arr['deadline'], ':priority' => $arr['priority'], ':complete' => $arr['complete'], ':id' => $arr['id']));
-
-	//echo ($success) ? "<a href='tasks.php'>Back</a>" : "Error: " . print_r($con->errorInfo()); //errorInfo ñ tá funcionando
 }
 
 function remove_task($con, $id) {

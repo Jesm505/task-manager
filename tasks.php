@@ -1,16 +1,14 @@
 <?php 
 session_start();
-require "database.php";
-require "helpers.php";
+require 'config.php';
+require 'database.php';
+require 'helpers.php';
 
 $display_table = true;
 $theres_error = false;
 $validation_errors = [];
 
-//var_dump($task);
-
 if (theres_post()) {
-	$task = [];
 
 	if (array_key_exists('name', $_POST) && strlen($_POST['name']) > 0) {
 		$task['name'] = $_POST['name'];
@@ -45,12 +43,15 @@ if (theres_post()) {
 	}
 	
 	if (!$theres_error) {
+		if (array_key_exists("reminder", $_POST) && $_POST['reminder'] == '1') {
+			send_email($task);
+		}
+
 		insert_task($tasks_con, $task);
-		header('Location? tasks.php');
-		die;
+
+		#header('Location? tasks.php');
+		#die;
 	}
-	var_dump($task);
-	//echo '<br>' . $theres_error . '<br>';
 }
 
 
@@ -63,7 +64,7 @@ $task = array(
 		'deadline' => (array_key_exists('deadline', $_POST)) ? date_to_db($_POST['deadline']) : '',
 		'priority' => (array_key_exists('priority', $_POST)) ? $_POST['priority'] : '',
 		'complete' => (array_key_exists('complete', $_POST)) ? $_POST['complete'] : ''
-); 
-//var_dump($task);
+);
+
 require "template.php";
 ?>

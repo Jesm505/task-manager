@@ -70,6 +70,9 @@
 						: '';
 				?>>
 			</label>
+			<label>
+				Email reminder: <input type="checkbox" name="reminder" value="1">
+			</label>
 			<input type="submit" value="<?php echo ($task['id'] > 0) ? 'Update' : 'Register' ?>">
 		</fieldset>
 	</form>

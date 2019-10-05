@@ -1,5 +1,6 @@
 <?php 
 
+require 'config.php';
 require 'database.php';
 require 'helpers.php';
 
@@ -34,12 +35,6 @@ if (theres_post()) {
 
 $task = search_task($tasks_con, $_GET['id']);
 $file = search_attachs($tasks_con, $_GET['id']);
-
-#var_dump($attachment);
-var_dump($_FILES);
-echo "<br>";
-var_dump($file);
-#echo (validate_attach($_FILES['attachment']) ? "<br> everdade a validação" : "<br>metirossoo");
 
 require 'task_template.php';
 

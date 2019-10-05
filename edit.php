@@ -1,12 +1,12 @@
 <?php  
 
 	session_start();
-
+	require 'config.php';
 	require 'database.php';
 	require 'helpers.php';
 
 	$display_table = false;
-	$theres_error = false; //depois mudar isso aqui senho
+	$theres_error = false; # hey remember to change this 
 	$validation_errors = [];
 
 	if (theres_post()) {
@@ -46,25 +46,24 @@
 
 		if (!$theres_error) {
 			edit_task($tasks_con, $task);
+
+			if (array_key_exists("reminder", $_POST) && $_POST['reminder'] == '1') {
+				$file = search_attachs($tasks_con, $task['id']);
+				send_email($task, $file);
+			}
+
 			header('Location: tasks.php');
 			die;
 		}
 	}
 
 	$task = search_task($tasks_con, $_GET['id']);
-
-	var_dump($task);
-	echo "<br>";
-	var_dump($_POST);
 	
 	$task['name'] = (array_key_exists('name', $_POST)) ? $_POST['name'] : $task['name'];
 	$task['description'] = (array_key_exists('description', $_POST)) ? $_POST['description'] : $task['description'];
 	$task['deadline'] = (array_key_exists('deadline', $_POST)) ? date_to_db($_POST['deadline']) : $task['deadline'];
 	$task['priority'] = (array_key_exists('priority', $_POST)) ? $_POST['priority'] : $task['priority'];
 	$task['complete'] = (array_key_exists('complete', $_POST)) ? $_POST['complete'] : $task['complete'];
-
-	echo "<br>";
-	var_dump($task);
 
 	require 'template.php';
 
