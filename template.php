@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Tasks Manager</title>
+	<title>Task Manager</title>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<h1>Tasks Manager</h1>
+	<h1>Task Manager</h1>
 
 	<?php if ($display_table): ?>
 		<?php require 'table.php'; ?>
