@@ -119,7 +119,7 @@ function send_email($task, $attachs = []) {
 		$email->SMTPSecure = 'tls';
 		$email->SMTPAuth = true;
 		$email->Username = "myemail@gmail.com";
-		$email->Password = "password";
+		$email->Password = "mypassword";
 		$email->setFrom("myemail@gmail.com", "Task Reminder");
 		$email->addAddress("yourfriendemail@gmail.com");
 		$email->Subject = "Task Reminder: {$task['name']}";
@@ -132,10 +132,10 @@ function send_email($task, $attachs = []) {
 		$email->send();
 
 	} catch(Exception $e) {
-		# improve the error handling here
 		echo $email->ErrorInfo;
+		generate_log($email->ErrorInfo);
 		echo "<br><a href='tasks.php'>Back</a>";
-		die;
+	 	die;
 	}
 }
 
@@ -148,6 +148,12 @@ function prepare_to_ebody($task, $attachs) {
 	ob_get_clean();
 
 	return $body;
+}
+
+function generate_log($msg) {
+	$date_hour = date('Y m d H:i');
+	$msg = "{$date_hour} {$msg}\n";
+	file_put_contents("log/messages.log", $msg, FILE_APPEND);
 }
 
 ?>

@@ -2,6 +2,7 @@
 attachments/
 databases/
 vendor/
+log/
 
 # ignored files
 composer.json
