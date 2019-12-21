@@ -27,7 +27,7 @@ Para mais informações sobre como instalar o PHP junto ao Apache ou o Nginx [cl
 Feito isso, você deverá criar um banco de dados com as tables _tasks_ e _attachments_ para guardar as informações das tarefas, recomendo a utilização do _SQLite_, pois assim não será necessária maiores modificações no arquivo _database.php_, você só precisará apontar o caminho para o banco de dados neste caso.  
 As tables deverão ser criadas da seguinte maneira:
 
-```sh
+```
 CREATE TABLE tasks (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name VARCHAR(20),
